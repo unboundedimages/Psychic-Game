@@ -1,44 +1,62 @@
-// put game logic here
-//create a game where you must guess what letter the computer is thinking.
-// You play by pressing random letters.
-//The computer will either be thinking of the same letter or not.
-//if it's guess of the same letter, you win.  If not you lose.
-// You will have a finite (10) amount of guesses before you either log a win or loss.
-//Your values will output on the screen
-//There will be a visible log for wins and losses that output to the screen.
-// The amount of guesses will count down from 10-0 and will also show one the screen underneath the win loss output-
-//if you guess the right letter the game resets and logs a win.
-//if you get to 0 without guessing the letter, a loss is logged and the game resets
-// you will also be able to see your letter guesses used on the screen - up to ten characters.
-var pychGame = document.getElementById('game');
-console.log(pychGame);
+// The purpose of this game is to have the computer pick a random letter and guess it.
+// The user will have 9 guesses to pick the correct letter
+// If the user picks the correct letter, a point will logged and counted.
+// If the user does not guess the correct letter, a point for a loss will be counted and logged.
 
-pychGame.textContent = 'Suck it js';
-//set define variables wins and losses
-var wins, losses;
-// define wins and losses as starting with 0.  The function states if iWin, add 1 to win.   If iLose add 1 to losses.
-// and repeat.
-var wins = 0,
-    losses = 0;
 
-function iWin() {
-    wins += 1;
+// first variable is setup as an array containing a string of alphabets
+var alphabetLetters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+// Next set of variables  is for the counting and logging of the wins, losses, and remaining guesses.
+var wins = 0;
+var losses = 0;
+var guessesRemaining = 9;
+// guessesSoFar is an array capture the users key strokes with the []
+var guessesSoFar = [];
+// null is used b/c there is no telling what the end user will select. It's undefined.
+var userGuess = null;
+// var letterToBeGuessed is defined byt the alphabet array which is using Math.Floor(Math.randon)*xxxx.length)] to pick random letters.
+var letterToBeGuessed = alphabetLetters[Math.floor(Math.random() * alphabetLetters.length)];
+// console.log is going to output in console the wins, losses, remaining guesses,
+console.log("Wins: " + wins + " Losses: " + losses + " GuessesRemaining: " + guessesRemaining + " Guesses so far: " + guessesSoFar + " Computer picked: " + letterToBeGuessed);
+
+// xxx.onkeyup records the outup as so as the key is lifted.
+document.onkeyup = function(event) {
+
+    // I have no idea how this string works, but when I take it out, the code breaks and doesn't function.
+    var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+
+    //I don't fully understand the && but, indexOf loops back to the first occurance of 9 guesses, as wells a the alphabet array resets.
+    if (guessesSoFar.indexOf(userGuess) < 0 && alphabetLetters.indexOf(userGuess) >= 0) {
+        guessesSoFar[guessesSoFar.length] = userGuess;
+        // if it is a new letter then decrease remaining guesses by 1
+        guessesRemaining--;
+    }
+
+    // if letterToBeGuessed is equal == to the userGuess, them wins++ will add 1 number value to the win output in console and the screen.
+    // and then reset guessesRemaining to 9, and empty the guessesSoFar array and the computer will make a new selection.
+    if (letterToBeGuessed == userGuess) {
+        wins++;
+        console.log("You won!");
+        guessesRemaining = 9;
+        guessesSoFar = [];
+        letterToBeGuessed = alphabetLetters[Math.floor(Math.random() * alphabetLetters.length)];
+        console.log("Wins: " + wins + " Losses: " + losses + " GuessesRemaining: " + guessesRemaining + " Guesses so far: " + guessesSoFar + " Computer picked: " + letterToBeGuessed);
+    }
+
+    // this function is the same as the last, except losses++ will add one number value to the lost output in console and the screen.
+    if (guessesRemaining == 0) {
+        losses++;
+        console.log("You lost!");
+        guessesRemaining = 9;
+        guessesSoFar = [];
+        letterToBeGuessed = alphabetLetters[Math.floor(Math.random() * alphabetLetters.length)];
+        console.log("Wins: " + wins + " Losses: " + losses + " GuessesRemaining: " + guessesRemaining + " Guesses so far: " + guessesSoFar + " Computer picked: " + letterToBeGuessed);
+    }
+
+    // Displaying progress to HTML
+    var html = "<p><h1>The Psychic Game</h1></p>" + "<p><h4>Guesssss what letter I'm thinking of</h4></p>" + "<p><h4>Wins: " + wins + "</h4></p>" + "<p><h4>Losses: " + losses + "</h4></p>" + "<p><h4>Guesses Left: " + guessesRemaining + "</h4></p>" + "<p><h4>Your guesses so far: " + guessesSoFar + "</h4></p>";
+    // this links all the code back to the hmtl on line code 35 in the html
+    document.querySelector("#game").innerHTML = html;
+
 }
-
-function iLose() {
-    losses += 1;
-}
-
-////////////////////////////////////////////////////////////------------------------------------------------------------
-// created an array of letters.  var is set to letters so, letters will use [Math.floor(Math.random() * letters.length)]
-// to  something about randomly picking a letter value based off it's numeric place in the array.  I.e. it will
-// randomly pick 2 or "c", and the next time it will randomly pic 9 or "j"
-////////////////////////////////////////////////////////////------------------------------------------------------------
-
-function randLetter() {
-    var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-    var letter = letters[Math.floor(Math.random() * letters.length)];
-    return letter
-}
-
-('#letter').html(randLetter())

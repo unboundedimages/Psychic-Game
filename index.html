@@ -2,20 +2,60 @@
 <html>
 
 <head>
+    <title>Psychic Game</title>
+    `
     <meta charset="utf-8">
-    <title>The Guessing Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Psychic Game">
+
+
+
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 
 <body>
-    <h1>The Psycic Game</h1>
-    <br>
-    <p>Guess what letter I'm thinking of</p>
-    <div id="game">
+    <section class="mainSection">
 
+        <div class="jumbotron" id="box-wrapper">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-6">
+                    <img src="assets/images/unnamed.jpg" class="img-responsive" alt="psychic">
+                </div>
+                <div class="col-md-5"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-6" id="game">
+                    <p>
+                        <h1>The Psychic Game</h1>
+                    </p>
+                    <p>
+                        <h4>Guesssss what letter I'm thinking of</h4>
+                    </p>
+                    <p>
+                        <h4>Wins: 0</h4>
+                    </p>
+                    <p>
+                        <h4>Losses: 0</h4>
+                    </p>
+                    <p>
+                        <h4>
+                            <section class="under-four">Guesses Left: 9</section>
+                        </h4>
+                    </p>
+                    <p>
+                        <h4>Your guesses so far: </h4>
+                    </p>
+                </div>
+                <div class="col-md-5"></div>
+            </div>
+        </div>
 
-    </div>
-    <script type="text/javascript" src="./assets/javascript/game.js"></script>
-
+        <!-- Link to javascript game.js -->
+        <script type="text/javascript" src="assets/javascript/game.js"></script>
+    </section>
 </body>
 
 </html>
